@@ -111,24 +111,17 @@ export default function Signin() {
 // }
 //   };
 try {
-  // const response = await fetch("https://backend-ten-chi-65.vercel.app/users/getUser", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(formData),
-  //   credentials: "include",    // Ensure the cookie is sent with the request
-  
-  // });
-
   const response = await fetch("https://backend-ten-chi-65.vercel.app/users/getUser", {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ key: "value" }),
+    body: JSON.stringify(formData),
+    credentials: "include",    // Ensure the cookie is sent with the request
+  
   });
+
+
   if (response.ok) {
     const data = await response.json(); // Await the resolved JSON
     console.log("Response Data:", data);
