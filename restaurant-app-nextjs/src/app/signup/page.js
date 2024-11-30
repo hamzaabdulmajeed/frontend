@@ -81,7 +81,7 @@ export default function SignUp() {
   
     try {
       
-      const response = await fetch("https://backend-ten-chi-65.vercel.app/users/addUser", {
+      const response = await fetch("http://localhost:3000/users/addUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
