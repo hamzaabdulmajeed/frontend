@@ -36,7 +36,7 @@ function ResponsiveAppBar() {
   const handleLogout = async () => {
     try {
       // If using a backend API for logout
-      const response = await fetch('http://localhost:3002/users/logout', {
+      const response = await fetch('https://backend-iota-one-82.vercel.app/users/logout', {
         method: 'POST',
         credentials: 'include', // Include cookies if using sessions
       });
