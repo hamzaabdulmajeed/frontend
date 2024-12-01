@@ -33,7 +33,15 @@ export async function middleware(request) {
   // Read the `userId` cookie from the request
   // const {cookies} = request;
 
-  const userId = request.cookies.get("userId")?.value;
+  // const userId = request.cookies.get("userId")?.value;
+  const cookies = request.headers.get('cookie'); // Get the cookie header
+const userId = cookies
+  ?.split('; ') // Split cookies into key-value pairs
+  .find(cookie => cookie.startsWith('userId=')) // Find the specific cookie
+  ?.split('=')[1]; // Extract the value of userId
+
+console.log(userId); // Logs the value of userId if present, otherwise undefined
+
 
   
 
