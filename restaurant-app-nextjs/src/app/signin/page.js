@@ -111,13 +111,13 @@ export default function Signin() {
 // }
 //   };
 try {
-  const response = await fetch("https://backend-teal-pi.vercel.app/users/getUser", {
+  const response = await fetch("https://backend-seven-lac-21.vercel.app/users/getUser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-    credentials: "include",    // Ensure the cookie is sent with the request
+    // credentials: "include",    // Ensure the cookie is sent with the request
   
   });
 
