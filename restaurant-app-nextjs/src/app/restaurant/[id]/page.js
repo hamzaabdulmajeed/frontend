@@ -481,7 +481,7 @@ export default function DetailUI() {
           gap={2}
         >
           {food.map((food, index) => (
-            <Link href={`/restaurant/${index}`} key={index}>
+            // <Link href={`/restaurant/${index}`} key={index}>
               <CardS
                 key={index}
                 description={food.description}
@@ -491,7 +491,7 @@ export default function DetailUI() {
                 distance={food.distance}
                 time={food.time}
               />
-            </Link>
+            // </Link>
           ))}
         </Box>
         {/* <Box

@@ -36,16 +36,16 @@ function ResponsiveAppBar() {
   const handleLogout = async () => {
     try {
       // If using a backend API for logout
-      const response = await fetch('https://backend-seven-lac-21.vercel.app/users/logout', {
+      const response = await fetch('https://backend-pink-nine-29.vercel.app/users/logout', {
         method: 'POST',
-        // credentials: 'include', // Include cookies if using sessions
+        credentials: 'include', // Include cookies if using sessions
       });
 
       if (response.ok) {
         toast.success('Logged out successfully');
 
         // Clear any token from localStorage or sessionStorage
-        // localStorage.removeItem('userId');
+        localStorage.removeItem('user');
         // sessionStorage.removeItem('authToken');
 
         // Notify the user and redirect

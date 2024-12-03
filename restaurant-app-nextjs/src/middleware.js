@@ -31,35 +31,35 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request) {
   // Read the `userId` cookie from the request
-  // const {cookies} = request;
+  const {cookies} = request;
 
-  // const userId = request.cookies.get("userId")?.value;
+  const user = request.cookies.get("user")?.value;
 //   const cookies = request.headers.get('cookie'); // Get the cookie header
 // const userId = cookies
 //   ?.split('; ') // Split cookies into key-value pairs
 //   .find(cookie => cookie.startsWith('userId=')) // Find the specific cookie
 //   ?.split('=')[1]; // Extract the value of userId
 
-// console.log(userId); // Logs the value of userId if present, otherwise undefined
+console.log(user); // Logs the value of userId if present, otherwise undefined
 
 
   
 
-//   console.log("Middleware: userId from cookie =>", userId);
+  console.log("Middleware: userId from cookie =>", user);
 
-//   const loginUserNotAccess =
-//     request.nextUrl.pathname === "/signin" || 
-//     request.nextUrl.pathname === "/signup";
+  const loginUserNotAccess =
+    request.nextUrl.pathname === "/signin" || 
+    request.nextUrl.pathname === "/signup";
 
-//   // If the user is authenticated and tries to access signin/signup, redirect to home
-//   if (loginUserNotAccess && userId) {
-  //   return NextResponse.redirect(new URL("/", request.url));
-  // }
+  // If the user is authenticated and tries to access signin/signup, redirect to home
+  if (loginUserNotAccess && user) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-  // // If the user is unauthenticated and tries to access protected routes
-  // if (!userId && !loginUserNotAccess && !request.nextUrl.pathname.startsWith("/users")) {
-  //   return NextResponse.redirect(new URL("/signin", request.url));
-  // }
+  // If the user is unauthenticated and tries to access protected routes
+  if (!user && !loginUserNotAccess && !request.nextUrl.pathname.startsWith("/users")) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
 
   // Allow access if no redirection is required
   return NextResponse.next();
