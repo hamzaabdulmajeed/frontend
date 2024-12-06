@@ -81,7 +81,7 @@ export default function SignUp() {
   
     try {
       
-      const response = await fetch("https://backend-pink-nine-29.vercel.app/users/addUser", {
+      const response = await fetch("https://backend-three-tau-93.vercel.app/users/addUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
