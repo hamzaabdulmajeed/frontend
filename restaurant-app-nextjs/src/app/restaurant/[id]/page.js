@@ -1,36 +1,3 @@
-// "use client";
-
-// import React, { useState } from "react";
-// import Navbar from "../../components/navbar/page"
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-// import Image from "next/image";
-// import Box from '@mui/material/Box';
-// import Rating from '@mui/material/Rating';
-// import FoodI from "../../assets/food.png";
-
-// function DetailUI(item) {
-
-// const {image, name , rating , description, distance, time} = item
-
-//   return (
-//     <Box height="600px">
-//   <Image
-//       width={500}
-//       height={500}
-//        src={FoodI}
-//        alt="restaurant"
-//       />
-//     </Box>
-
-//   );
-// };
-
-// export default DetailUI;
 "use client";
 
 import * as React from "react";
@@ -65,61 +32,18 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 // import TextField from '@mui/material/TextField';
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-// function renderRow(props) {
-//   const { index, style } = props;
 
-//   return (
-//     <ListItem style={style} key={index} component="div" disablePadding>
-//       <ListItemButton>
-//         <ListItemText primary={`Item ${index + 1}`} />
-//       </ListItemButton>
-//     </ListItem>
-//   );
-// }
-// function IndeterminateCheckbox() {
-//   const [checked, setChecked] = React.useState([true, false]);
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Divider } from "@mui/material";
+import { useEffect } from "react";
 
-//   const handleChange1 = (event) => {
-//     setChecked([event.target.checked, event.target.checked]);
-//   };
-
-//   const handleChange2 = (event) => {
-//     setChecked([event.target.checked, checked[1]]);
-//   };
-
-//   const handleChange3 = (event) => {
-//     setChecked([checked[0], event.target.checked]);
-//   };
-
-//   const children = (
-//     <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-//       <FormControlLabel
-//         label="Child 1"
-//         control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-//       />
-//       <FormControlLabel
-//         label="Child 2"
-//         control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-//       />
-//     </Box>
-//   );
-
-//   return (
-//     <div>
-//       <FormControlLabel
-//         label="Parent"
-//         control={
-//           <Checkbox
-//             checked={checked[0] && checked[1]}
-//             indeterminate={checked[0] !== checked[1]}
-//             onChange={handleChange1}
-//           />
-//         }
-//       />
-//       {children}
-//     </div>
-//   );
-// }
 function IndeterminateCheckbox({
   parentLabel = "Parent",
   childLabels = ["Child 1", "Child 2", "Child 3", "Child 4"],
@@ -176,6 +100,15 @@ function IndeterminateCheckbox({
     </div>
   );
 }
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
 function DropdownButton({ buttonLabel = "Options", menuItems = [] }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -257,6 +190,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "10$",
   },
   {
     description: "kids eat free",
@@ -265,6 +199,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "20$",
   },
   {
     description: "kids eat free",
@@ -273,6 +208,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "30$",
   },
   {
     description: "kids eat free",
@@ -281,6 +217,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "40$",
   },
   {
     description: "kids eat free",
@@ -289,6 +226,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "50$",
   },
   {
     description: "kids eat free",
@@ -297,6 +235,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "60$",
   },
   {
     description: "kids eat free",
@@ -305,6 +244,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "70$",
   },
   {
     description: "kids eat free",
@@ -313,6 +253,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "80$",
   },
   {
     description: "kids eat free",
@@ -321,38 +262,86 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
+    price: "90$",
   },
 ];
 
 console.log(food);
 // ../../assets/phone.png
 export default function DetailUI() {
+  const [selectedFood, setSelectedFood] = useState(null);
   const [value, setValue] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [cart, setCart] = useState([]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCart(storedCart);
+  }, [setCart]);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClos = () => {
+    setAnchorEl(null);
+  };
+
+  const removeFromCart = (index) => {
+    // setCart((prevCart) => prevCart.filter((_, i) => i !== index));
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter((_, i) => i !== index);
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
+      return updatedCart; // Update state
+    });
+  };
+
+  const handleClickOpen = (foodItem) => {
+    setSelectedFood(foodItem); // Set the selected food data
+    setOpen(true); // Open the dialog
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedFood(null); // Clear the selected food data
+  };
+
+  const addToCart = () => {
+    if (selectedFood) {
+      const updatedCart = [...cart, selectedFood];
+
+      // Update state and localStorage
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      handleClose(); // Close the dialog after adding
+      console.log(`Added to cart: ${selectedFood.name}`, updatedCart);
+    }
+  };
+
   return (
     <Box
       component="section"
       sx={{
-        // p: 2,
-        height: "1723px",
-        width: "1440px",
+        height: "auto", // Allow auto height for responsiveness
+        width: "100%", // Full width
         backgroundColor: "#F4F4ED",
         display: "flex",
+        flexWrap: "wrap",
       }}
     >
       <Box
-        width="264px"
-        height="1723px"
-        backgroundColor="#F4F4ED"
-        position="relative"
+        sx={{
+          // Hide on small screens
+          height: "auto",
+          backgroundColor: "#F4F4ED",
+          position: "relative",
+          width: { xs: "0", md: "264px" },
+          display: { xs: "none", md: "block" }, // Hide content on smaller screens
+        }}
       >
-        {/* <Box
-          width="316px"
-          height="1400px"
-          backgroundColor="blue"
-          top="42px"
-          left="51px"
-          position="absolute"
-        ></Box> */}
         <Box
           width="184px"
           height="564px"
@@ -381,7 +370,7 @@ export default function DetailUI() {
             ))}
           </Box>
         </Box>
-        <Box
+        {/* <Box
           width="196px"
           height="1078px"
           backgroundColor="#F4F4ED"
@@ -428,35 +417,121 @@ export default function DetailUI() {
               ]}
             />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box
-        width="744px"
-        height="1723px"
-        backgroundColor="white"
-        position="relative"
+        sx={{
+          width: { xs: "100%", sm: "90%", md: "744px" }, // Full width on extra-small and small screens, fixed on medium+
+          height: "auto",
+          backgroundColor: "white",
+          position: "relative",
+          padding: { xs: "10px", md: "20px" }, // Smaller padding on small screens
+          margin: "0 auto", // Center content horizontally
+        }}
       >
         <Box
-          width="650px"
-          height="56px"
-          position="absolute"
-          top="20px"
-          left="20px"
-          borderRadius="20px"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-end"
+          sx={{
+            width: "100%",
+            height: "56px",
+            borderRadius: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px",
+            flexDirection: { xs: "column", sm: "row" }, // Stack on extra-small screens
+          }}
         >
-          <Button variant="text" sx={{ color: "black" }}>
+          <Button
+            variant="text"
+            sx={{ color: "black", fontSize: { xs: "12px", sm: "16px" } }}
+          >
             <Link href="/" underline="hover">
-            Home
-          </Link>
+              Home
+            </Link>
           </Button>
+          <Box>
+            {/* Cart Button */}
+            <Button
+              onClick={handleClick}
+              sx={{ fontSize: { xs: "10px", sm: "14px" } }}
+            >
+              {cart?.length}
+              <ShoppingCartIcon fontSize="small" />
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClos}
+              MenuListProps={{
+                "aria-labelledby": "cart-button",
+              }}
+            >
+              {/* Display items in the cart */}
+              {cart?.length > 0 ? (
+                cart.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <Box display="flex" flexDirection="column" width="100%">
+                      <Image
+                        src={item.image}
+                        width={250}
+                        height={100}
+                        alt={item.name}
+                        style={{ borderRadius: 4 }}
+                      />
+                      <Box ml={2} flex="1">
+                        <Typography
+                          fontWeight="bold"
+                          fontSize={{ xs: "12px", sm: "14px" }}
+                        >
+                          {item.name}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {item.description}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          ⭐ {item.rating} · ⏱ {item.time} min · 📍{" "}
+                          {item.distance} <br />
+                          Price: {item.price}
+                        </Typography>
+                      </Box>
+                      <Button
+                        variant="text"
+                        color="error"
+                        size="small"
+                        onClick={() => removeFromCart(index)} // Remove by index
+                        sx={{
+                          alignSelf: "center",
+                          fontSize: { xs: "10px", sm: "12px" },
+                        }}
+                      >
+                        Remove From Cart
+                      </Button>
+                    </Box>
+                    <Divider sx={{ width: "100%", my: 1 }} />
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem>
+                  <Typography>No items in cart</Typography>
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
           <TextField
             variant="outlined"
             placeholder="Search..."
-            width="300px"
+            sx={{
+              width: { xs: "100%", sm: "300px" }, // Full-width search on small screens
+              marginTop: { xs: "10px", sm: "0" }, // Add margin for stacked layout
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -468,33 +543,114 @@ export default function DetailUI() {
         </Box>
 
         <Box
-          // width={882}
-          // height={648}
-          // key={index}
-          position="absolute"
-          top="120px"
-          left="20px"
-          display="flex"
-          flexWrap="wrap"
-          // flexDirection="column"
-
-          gap={2}
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: { xs: "center", sm: "space-between" }, // Center items on small screens
+            gap: 2,
+            position: "relative",
+            marginTop: { xs: "80px", sm: "0px" },
+          }}
         >
-          {food.map((food, index) => (
-            // <Link href={`/restaurant/${index}`} key={index}>
+          {food.map((item, index) => (
+            <Box
+              key={index}
+              onClick={() => handleClickOpen(item)} // Pass the clicked food item
+              sx={{
+                width: { xs: "100%", sm: "calc(50% - 10px)", md: "200px" }, // Adjust width for breakpoints
+                height: "auto",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <CardS
                 key={index}
-                description={food.description}
-                image={food.image}
-                rating={food.rating}
-                name={food.name}
-                distance={food.distance}
-                time={food.time}
+                description={item.description}
+                image={item.image}
+                rating={item.rating}
+                name={item.name}
+                distance={item.distance}
+                time={item.time}
               />
-            // </Link>
+            </Box>
           ))}
+
+          {/* Dialog to display selected food details */}
+          <Dialog onClose={handleClose} open={open}>
+            <DialogTitle>
+              {selectedFood?.name}
+              <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent dividers>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                {selectedFood ? (
+                  <>
+                    <Box
+                      sx={{
+                        width: { xs: "100%", sm: "500px" }, // Image adjusts to container
+                        height: "auto",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src={selectedFood?.image}
+                        alt={selectedFood?.name}
+                        style={{width:"100%", height:"100%"}}
+                        
+                        
+                      />
+                    </Box>
+                    <Typography variant="body1" mt={2}>
+                      {selectedFood.description}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Rating: {selectedFood.rating}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Distance: {selectedFood.distance}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Estimated Time: {selectedFood.time}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Price: {selectedFood.price}
+                    </Typography>
+                  </>
+                ) : (
+                  <Typography>No food selected</Typography>
+                )}
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Close</Button>
+              <Button onClick={() => addToCart()}>Add to Cart</Button>
+            </DialogActions>
+          </Dialog>
         </Box>
-        {/* <Box
+      </Box>
+      {/* <Box> */}
+      {/* <Box
   position="absolute"
   top="120px"
   left="20px"
@@ -532,7 +688,7 @@ export default function DetailUI() {
   ))}
 </Box> */}
 
-        {/* <Box
+      {/* <Box
             // width={882}
             // height={648}
             position="absolute"
@@ -556,21 +712,27 @@ export default function DetailUI() {
               />
             ))}
           </Box> */}
-      </Box>
+      {/* </Box> */}
       <Box
-        width="168px"
-        height="608px"
-        backgroundColor="#DAE7C9"
-        top="140px"
-        left="1064px"
-        position="absolute"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
+        sx={{
+          width: { xs: "0", md: "168px" }, // Hide on small screens
+          height: "auto",
+          backgroundColor: "#DAE7C9",
+          position: "relative",
+          display: { xs: "none", md: "block" }, // Hide content on smaller screens
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "30px 0",
+        }}
       >
-        <Box width="128px" height="500px" backgroundColor="#DAE7C9" py="30px" my="50px" >
+        <Box
+          width="128px"
+          height="500px"
+          backgroundColor="#DAE7C9"
+          py="30px"
+          my="50px"
+        >
           <Box
-    
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -580,9 +742,8 @@ export default function DetailUI() {
             gap={2}
           >
             <Image src={dog} width={48} height={48} alt="Wifi Icon" />
-            
-              <Typography> Pet Friendly </Typography>
-            
+
+            <Typography> Pet Friendly </Typography>
           </Box>
           <Box
             display="flex"
@@ -594,9 +755,8 @@ export default function DetailUI() {
             gap={2}
           >
             <Image src={stroller} width={48} height={48} alt="Wifi Icon" />
-           
-              <Typography> Kids </Typography>
-            
+
+            <Typography> Kids </Typography>
           </Box>
           <Box
             display="flex"
@@ -609,7 +769,6 @@ export default function DetailUI() {
           >
             <Image src={senior} width={48} height={48} alt="Wifi Icon" />
             <Typography> Seniors </Typography>
-
           </Box>
           <Box
             display="flex"
@@ -622,11 +781,10 @@ export default function DetailUI() {
           >
             <Image src={medal} width={48} height={48} alt="Wifi Icon" />
             <Typography> Veterans </Typography>
-
           </Box>
-
-          </Box>
+        </Box>
       </Box>
     </Box>
   );
 }
+

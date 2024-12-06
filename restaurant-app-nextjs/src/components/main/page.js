@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 
 import Box from "@mui/material/Box";
@@ -25,6 +25,7 @@ import FoodI from "../../assets/food.png";
 import Link from "next/link";
 import { Label } from "@mui/icons-material";
 import { FavoriteItem } from "../../app/context";
+import "./page.css"
 
 const restaurants = [
   {
@@ -80,7 +81,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "sharin plates",
+    Category: "Crab rangoon dip",
   },
   {
     id: "2",
@@ -90,7 +91,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "sharin plates",
+    Category: "Gyoza",
   },
   {
     id: "3",
@@ -100,7 +101,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Crab rangoon dip",
+    Category: "Fried tofu",
   },
   {
     id: "4",
@@ -110,7 +111,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Crab rangoon dip",
+    Category: "House salad",
   },
   {
     id: "6",
@@ -120,7 +121,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Gyoza",
+    Category: "Edamame",
   },
   {
     id: "7",
@@ -130,7 +131,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Fried tofu",
+    Category: "Honey garlic shrimp",
   },
   {
     id: "8",
@@ -140,7 +141,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Fried tofu",
+    Category: "Maru fried rice",
   },
   {
     id: "9",
@@ -150,7 +151,7 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Fried tofu",
+    Category: "Roasted shishito",
   },
   {
     id: "10",
@@ -160,118 +161,118 @@ const food = [
     rating: "3",
     distance: "10KM",
     time: "30 mint",
-    Category: "Fried tofu",
-  },
-  {
-    id: "11",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 11",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "House salad",
-  },
-  {
-    id: "12",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 12",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "House salad",
-  },
-  {
-    id: "13",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 13",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Edamame",
-  },
-  {
-    id: "14",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 14",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Honey garlic shrimp",
-  },
-  {
-    id: "15",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 15",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Honey garlic shrimp",
-  },
-  {
-    id: "16",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 16",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Honey garlic shrimp",
-  },
-  {
-    id: "17",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 17",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Honey garlic shrimp",
-  },
-  {
-    id: "18",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 18",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Maru fried rice",
-  },
-  {
-    id: "19",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 19",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Roasted shishito",
-  },
-  {
-    id: "20",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 20",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
-    Category: "Roasted shishito",
-  },
-  {
-    id: "21",
-    description: "kids eat free",
-    image: FoodI,
-    name: "restaurant 21",
-    rating: "3",
-    distance: "10KM",
-    time: "30 mint",
     Category: "Seaweed salad",
   },
+  // {
+  //   id: "11",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 11",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
+  // {
+  //   id: "12",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 12",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "House salad",
+  // },
+  // {
+  //   id: "13",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 13",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
+  // {
+  //   id: "14",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 14",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
+  // {
+  //   id: "15",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 15",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "Honey garlic shrimp",
+  // },
+  // {
+  //   id: "16",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 16",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "Honey garlic shrimp",
+  // },
+  // {
+  //   id: "17",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 17",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "Honey garlic shrimp",
+  // },
+  // {
+  //   id: "18",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 18",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
+  // {
+  //   id: "19",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 19",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
+  // {
+  //   id: "20",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 20",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "Roasted shishito",
+  // },
+  // {
+  //   id: "21",
+  //   description: "kids eat free",
+  //   image: FoodI,
+  //   name: "restaurant 21",
+  //   rating: "3",
+  //   distance: "10KM",
+  //   time: "30 mint",
+  //   Category: "",
+  // },
 ];
 
 const getUniqueData = (data, property) => {
@@ -285,14 +286,34 @@ const CategoryOnlyData = getUniqueData(food, "Category");
 export default function Main() {
   const { favorites, setFavorites } = useContext(FavoriteItem);
 
+
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    setFavorites(storedFavorites);
+  }, [setFavorites]);
+
   console.log("favorites", favorites);
  
   const onAddToFavorites = (foodItem) => {
  
-    if (!favorites.some((fav) => fav.id === foodItem.id)) {
-      setFavorites([...favorites, foodItem]);
-    }
-  };
+    const isAlreadyFavorite = favorites.some((fav) => fav.id === foodItem.id);
+
+  if (!isAlreadyFavorite) {
+    const updatedFavorites = [...favorites, foodItem];
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  }
+};
+
+  // useEffect(() => {
+  //   const storage = localStorage.getItem("favorites");
+  //   if (storage) {
+  //     const favData = JSON.parse(storage);
+  //     init(favData);
+  //   }
+
+  // }, []);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -300,220 +321,208 @@ export default function Main() {
     selectedCategory === "All"
       ? food
       : food.filter((item) => item.Category === selectedCategory);
-
-  return (
+return(
+  <Box
+  component="section"
+  sx={{
+    height: "100%", 
+    width: "100%", 
+    display: "flex",
+    flexDirection: {
+      xs: "column", 
+      md: "row", 
+    },
+    overflowX: "hidden",
+  }}
+>
+  {/* Left Section */}
+  <Box
+    sx={{
+      width: {
+        xs: "100%",
+       md: "30%", 
+      },
+      height: "auto",
+      backgroundColor: "#F4F4ED",
+      padding: {
+        xs: "16px", 
+        md: "0", 
+      },
+    }}
+  >
     <Box
-      component="section"
       sx={{
-        // p: 2,
-        height: "1484px",
-        width: "1440px",
-        backgroundColor: "yellow",
-        display: "flex",
+        width: "90%", // Relative width for better responsiveness
+        height: "auto",
+        backgroundColor: "#F4F4ED",
+        margin: "auto",
+        position: "relative",
+        paddingTop: "20px",
       }}
     >
-      {/* <ResponsiveAppBar favorites={favorites} /> */}
       <Box
-        width="413px"
-        height="1484px"
-        backgroundColor="#F4F4ED"
-        position="relative"
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          borderBottom: "1px solid",
+          pb: 2,
+          mb: 2,
+        }}
       >
-        <Box
-          width="316px"
-          height="507px"
-          backgroundColor="#F4F4ED"
-          top="42px"
-          left="51px"
-          position="absolute"
-        >
-          <Box display="flex" justifyContent="space-between" borderBottom={1}>
-            <Typography width={113} color="#030900">
-              Menu
-            </Typography>
-            All Items
-          </Box>
-
-          <Box width="316px" height="308px">
-            {CategoryOnlyData.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedCategory(category)}
-                style={{
-                  backgroundColor:
-                    selectedCategory === category ? "#ccc" : "#fff",
-                  border: "none",
-                  cursor: "pointer",
-                  margin: "5px 0",
-                  padding: "10px",
-                  textAlign: "left",
-                  width: "100%",
-                }}
-              >
-                {category}
-              </button>
-            ))}
-          </Box>
-          {/* <Box>
-            <Typography height={30} color="#030900">
-              Daily Special
-            </Typography>
-            <DropdownButton
-              buttonLabel="Desserts"
-              menuItems={["Option 1", "Option 2", "Option 3"]}
-            />{" "}
-            <br />
-            <DropdownButton
-              buttonLabel="Signature"
-              menuItems={["Option 1", "Option 2", "Option 3"]}
-            />
-            <br />
-            <DropdownButton
-              buttonLabel="White Wine"
-              menuItems={["Option 1", "Option 2", "Option 3"]}
-            />
-            <br />
-            <DropdownButton
-              buttonLabel="Makkuli"
-              menuItems={["Option 1", "Option 2", "Option 3"]}
-            />
-          </Box> */}
-        </Box>
-
-        <Box
-          width="316px"
-          height="564px"
-          backgroundColor="#F4F4ED"
-          top="559px"
-          left="51px"
-          position="absolute"
-        >
-          <Box>
-            <DropdownButton buttonLabel="Daily Special" />
-          </Box>
-          <Box
-            // width={316}
-            // height={114}
-            display="flex"
-            flexDirection="column"
-            gap={4}
-          >
-            {restaurants.map((restaurant, index) => (
-              <RestaurantCard
-                key={index}
-                description={restaurant.description}
-                image={restaurant.image}
-                rating={restaurant.rating}
-                sales={restaurant.sales}
-                discount={restaurant.discount}
-              />
-            ))}
-          </Box>
-        </Box>
-        <Box
-          width="316px"
-          height="24px"
-          backgroundColor=""
-          top="1180px"
-          left="51px"
-          position="absolute"
-        >
-          <Typography height={24} color="#030900">
-            Amenities
-          </Typography>
-        </Box>
-        <Box
-          width="316px"
-          height="172px"
-          backgroundColor="#ffffff"
-          top="1236px"
-          left="51px"
-          position="absolute"
-        >
-          <Box paddingLeft="30px" paddingRight="30px">
-            <Image src={wifi} width={80} height={80} alt="Wifi Icon" />
-            <Image src={outdoor} width={80} height={80} alt="Wifi Icon" />
-            <Image src={pet} width={80} height={80} alt="Wifi Icon" />
-          </Box>
-
-          <Box paddingLeft="30px" paddingRight="30px">
-            <Image src={parking} width={80} height={80} alt="Wifi Icon" />
-            <Image src={ac} width={80} height={80} alt="Wifi Icon" />
-            <Image src={events} width={80} height={80} alt="Wifi Icon" />
-          </Box>
-        </Box>
+        <Typography sx={{ fontSize: "18px", color: "#030900" }}>
+          Menu
+        </Typography>
+        <Typography>All Items</Typography>
       </Box>
-      <Box
-        width="1027px"
-        height="1484px"
-        backgroundColor="white"
-        position="relative"
-      >
-        <Box
-          width="190px"
-          height="56px"
-          position="absolute"
-          top="20px"
-          left="20px"
-          borderRadius="20px"
-        >
-          <Typography variant="h5" height={30} color="#030900">
-            {selectedCategory} <br />
-            {filteredFood.length} Items
-          </Typography>
-        </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            overflowX: "auto",
-            //  scrollSnapType: "x mandatory",
-            gap: 4,
-            width: "920px",
-            height: "1300px",
-            position: "absolute",
-            top: "120px",
-            left: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              // overflowX: "auto",
-              //  scrollSnapType: "x mandatory",
-              gap: 4,
-              // maxWidth: "920px",
-              height: "200px",
-              // width:"278px",
-              // position: "absolute",
-              // top:"120px",
-              // left:"20px",
-              flexWrap: "wrap",
+      <Box
+        sx={{
+          maxHeight: "308px",
+          overflowY: "auto",
+        }}
+      >
+        {CategoryOnlyData.map((category, index) => (
+          <button
+            key={index}
+            onClick={() => setSelectedCategory(category)}
+            style={{
+              backgroundColor:
+                selectedCategory === category ? "#ccc" : "#fff",
+              border: "none",
+              cursor: "pointer",
+              margin: "5px 0",
+              padding: "10px",
+              textAlign: "left",
+              width: "100%",
             }}
           >
-            {filteredFood.map((foodItem, index) => (
-              // <Link key={index} href={`/restaurant/${index}`} height="200px">
-              <Fcard
-               
-                key={index}
-                description={foodItem.description}
-                image={foodItem.image}
-                // onClick={() => setRating(rating)}
-                rating={foodItem.rating}
-                name={foodItem.name}
-                distance={foodItem.distance}
-                time={foodItem.time}
-               {...foodItem}
-                isFavorite={favorites.some((fav) => fav.id === foodItem.id)}
-                addToFavorites={() => onAddToFavorites(foodItem)}
-              />
-                //  </Link> 
-                 
-                 ))}
-          </Box>
-        </Box>
+            {category}
+          </button>
+        ))}
       </Box>
     </Box>
-  );
+
+    <Box
+      sx={{
+        width: "90%",
+        margin: "auto",
+        backgroundColor: "#F4F4ED",
+        mt: 4,
+        pb: 2,
+      }}
+    >
+      <DropdownButton buttonLabel="Daily Special" />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          mt: 2,
+        }}
+      >
+        {restaurants.map((restaurant, index) => (
+          <RestaurantCard
+            key={index}
+            description={restaurant.description}
+            image={restaurant.image}
+            rating={restaurant.rating}
+            sales={restaurant.sales}
+            discount={restaurant.discount}
+          />
+        ))}
+      </Box>
+    </Box>
+
+    <Box
+      sx={{
+        width: "90%",
+        margin: "auto",
+        mt: 4,
+        textAlign: "center",
+      }}
+    >
+      <Typography sx={{ fontSize: "18px", color: "#030900" }}>
+        Amenities
+      </Typography>
+    </Box>
+
+    <Box
+      sx={{
+        width: "90%",
+        margin: "auto",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+        mt: 2,
+      }}
+    >
+      {[wifi, outdoor, pet, parking, ac, events].map((icon, index) => (
+        <Image
+          key={index}
+          src={icon}
+          width={80}
+          height={80}
+          alt={`Icon ${index + 1}`}
+          style={{ marginBottom: "10px" }}
+        />
+      ))}
+    </Box>
+  </Box>
+
+  {/* Right Section */}
+  <Box
+    sx={{
+      width: {
+        xs: "100%", // Full width for small screens
+        md: "70%", // 70% of the viewport for medium and larger screens
+      },
+      height: "auto",
+      backgroundColor: "white",
+      padding: "16px",
+    }}
+  >
+    <Box
+      sx={{
+        width: "90%",
+        margin: "auto",
+        backgroundColor: "white",
+        p: 2,
+        borderRadius: "10px",
+      }}
+    >
+      <Typography variant="h5" sx={{ color: "#030900" }}>
+        {selectedCategory} <br />
+        {filteredFood.length} Items
+      </Typography>
+    </Box>
+
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 2,
+        mt: 4,
+        justifyContent: {
+          xs: "center", // Centered items for small screens
+          md: "flex-start", // Align to the left for larger screens
+        },
+      }}
+    >
+      {filteredFood.map((foodItem, index) => (
+        <Fcard
+          key={index}
+          description={foodItem.description}
+          image={foodItem.image}
+          rating={foodItem.rating}
+          name={foodItem.name}
+          id={foodItem.id}
+          isFavorite={favorites.some((fav) => fav.id === foodItem.id)}
+          addToFavorites={() => onAddToFavorites(foodItem)}
+        />
+      ))}
+    </Box>
+  </Box>
+</Box>
+
+)
 }

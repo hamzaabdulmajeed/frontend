@@ -33,31 +33,31 @@ export async function middleware(request) {
   // Read the `userId` cookie from the request
   const {cookies} = request;
 
-  const user = request.cookies.get("user")?.value;
+  const userId = request.cookies.get("userId")?.value;
 //   const cookies = request.headers.get('cookie'); // Get the cookie header
 // const userId = cookies
 //   ?.split('; ') // Split cookies into key-value pairs
 //   .find(cookie => cookie.startsWith('userId=')) // Find the specific cookie
 //   ?.split('=')[1]; // Extract the value of userId
 
-console.log(user); // Logs the value of userId if present, otherwise undefined
+console.log(userId); // Logs the value of userId if present, otherwise undefined
 
 
   
 
-  console.log("Middleware: userId from cookie =>", user);
+  console.log("Middleware: userId from cookie =>", userId);
 
   const loginUserNotAccess =
     request.nextUrl.pathname === "/signin" || 
     request.nextUrl.pathname === "/signup";
 
   // If the user is authenticated and tries to access signin/signup, redirect to home
-  if (loginUserNotAccess && user) {
+  if (loginUserNotAccess && userId) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   // If the user is unauthenticated and tries to access protected routes
-  if (!user && !loginUserNotAccess && !request.nextUrl.pathname.startsWith("/users")) {
+  if (!userId && !loginUserNotAccess && !request.nextUrl.pathname.startsWith("/users")) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
