@@ -117,7 +117,7 @@ try {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-    credentials: "include",    // Ensure the cookie is sent with the request
+    // credentials: "include",    // Ensure the cookie is sent with the request
   
   });
 
