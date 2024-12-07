@@ -15,6 +15,9 @@ import { useRouter } from 'next/navigation'
 // import { toast } from "react-toastify";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+
+
 
 export default function Signin() {
   const [emailError, setEmailError] = React.useState(false);
@@ -23,8 +26,25 @@ export default function Signin() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
-  
   const router = useRouter()
+  
+
+
+  useEffect(() => {
+    // Helper function to get cookies
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+  
+    const user = getCookie('user'); // Replace 'user' with your cookie name
+  
+    if (user) {
+      router.push('/'); // Redirect to signin if user is not authenticated
+    }
+  }, [router]);
+
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -117,7 +137,7 @@ try {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-    // credentials: "include",    // Ensure the cookie is sent with the request
+    credentials: "include",    // Ensure the cookie is sent with the request
   
   });
 
@@ -125,6 +145,8 @@ try {
   if (response.ok) {
     const data = await response.json(); // Await the resolved JSON
     console.log("Response Data:", data);
+
+    document.cookie = `user=${data.userId}; path=/; max-age=86400; SameSite=Lax;`;
         router.push('/')
 
     // Set the `userId` cookie in the browser

@@ -484,7 +484,7 @@ return(
     <Box
       sx={{
         width: "90%",
-        margin: "auto",
+        // margin: "auto",
         backgroundColor: "white",
         p: 2,
         borderRadius: "10px",

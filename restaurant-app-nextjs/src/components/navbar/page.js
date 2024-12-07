@@ -44,7 +44,7 @@ function ResponsiveAppBar() {
 
       if (response.ok) {
         toast.success("Logged out successfully");
-
+        document.cookie = "user=; path=/; max-age=0; SameSite=Lax;";
         // Clear any token from localStorage or sessionStorage
         localStorage.removeItem("userId");
         // sessionStorage.removeItem('authToken');
@@ -96,7 +96,7 @@ function ResponsiveAppBar() {
         color="black"
         display="flex"
         justifyContent="space-between"
-        maxWidth={1440}
+        // maxWidth={1440}
         // maxHeight={96}
         height={66}
         alignItems="center"
@@ -110,8 +110,12 @@ function ResponsiveAppBar() {
           justifyContent="flex-start"
         >
           <Box width={80} height={64}>
-            <Image src={LogoIcon} width={65} height={63} alt="Logo" />
+          <Link href="/" underline="hover">
+          <Image src={LogoIcon} width={65} height={63} alt="Logo" />
+          </Link>
+
           </Box>
+           {/* 
           {/* <Box maxWidth={1189} maxHeight={47} display="flex" alignItems="center">
           <Image src={vector} width={11} height={16} alt="Location Icon" />
           <Typography ml={1}>Kalamazoo, Michigan USA</Typography>

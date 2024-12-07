@@ -43,6 +43,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Divider } from "@mui/material";
 import { useEffect } from "react";
+import ResponsiveAppBar from "@/components/navbar/page";
+import Page from "@/components/footer/page"
+import { FavoriteItem } from "../../context";
+import { useContext} from "react";
+
 
 function IndeterminateCheckbox({
   parentLabel = "Parent",
@@ -273,7 +278,9 @@ export default function DetailUI() {
   const [value, setValue] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [cart, setCart] = useState([]);
-
+  // const [favorites, setFavorites] = useState([]);
+  // const { favorites, setFavorites } = useContext(FavoriteItem);
+ 
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
@@ -322,6 +329,12 @@ export default function DetailUI() {
   };
 
   return (
+
+    // <FavoriteItem.Provider value={{ favorites, setFavorites }}>
+    <Box>
+
+          <ResponsiveAppBar/>
+
     <Box
       component="section"
       sx={{
@@ -332,6 +345,7 @@ export default function DetailUI() {
         flexWrap: "wrap",
       }}
     >
+
       <Box
         sx={{
           // Hide on small screens
@@ -442,14 +456,14 @@ export default function DetailUI() {
             flexDirection: { xs: "column", sm: "row" }, // Stack on extra-small screens
           }}
         >
-          <Button
+          {/* <Button
             variant="text"
             sx={{ color: "black", fontSize: { xs: "12px", sm: "16px" } }}
           >
             <Link href="/" underline="hover">
               Home
             </Link>
-          </Button>
+          </Button> */}
           <Box>
             {/* Cart Button */}
             <Button
@@ -785,6 +799,11 @@ export default function DetailUI() {
         </Box>
       </Box>
     </Box>
+    <Page />
+    </Box>
+
+    // </FavoriteItem.Provider>
+
   );
 }
 

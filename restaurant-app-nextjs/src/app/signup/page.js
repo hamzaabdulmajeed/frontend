@@ -14,6 +14,7 @@ import Link from "@mui/material/Link";
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import  { useEffect } from 'react';
 
 
 export default function SignUp() {
@@ -24,6 +25,21 @@ export default function SignUp() {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
   const router = useRouter()
+
+  useEffect(() => {
+    // Helper function to get cookies
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+  
+    const user = getCookie('user'); // Replace 'user' with your cookie name
+  
+    if (user) {
+      router.push('/'); // Redirect to signin if user is not authenticated
+    }
+  }, [router]);
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -90,7 +106,7 @@ export default function SignUp() {
       });
       //  console.log("response", response)
       if (response.ok) {
-        router.push('/')
+        router.push('/signin')
         toast.success("Signup successfully");
       } else {
       
