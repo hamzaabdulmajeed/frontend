@@ -51,9 +51,9 @@ export default function page() {
   {/* Our Menu Section */}
   <Box
     sx={{
-      width: { xs: "100%", md: "400px" },
+      width: { xs: "100%", md: "200px" },
       marginBottom: { xs: "20px", md: "0" }, // Space below on smaller screens
-      textAlign: { xs: "center", md: "center" }, // Center text on small screens
+      textAlign: { xs: "center", md: "left" }, // Center text on small screens
     }}
   >
     <Typography sx={{ color: "white", fontWeight: "bold", marginBottom: "20px" }}>

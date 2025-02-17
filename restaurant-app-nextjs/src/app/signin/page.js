@@ -131,7 +131,7 @@ export default function Signin() {
 // }
 //   };
 try {
-  const response = await fetch("https://backend-three-tau-93.vercel.app/users/getUser", {
+  const response = await fetch("http://localhost:3002/users/getUser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

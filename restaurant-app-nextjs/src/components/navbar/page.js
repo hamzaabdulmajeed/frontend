@@ -37,7 +37,7 @@ function ResponsiveAppBar() {
   const handleLogout = async () => {
     try {
       // If using a backend API for logout
-      const response = await fetch("https://backend-three-tau-93.vercel.app/users/logout", {
+      const response = await fetch("http://localhost:3002/users/logout", {
         method: "POST",
         credentials: "include", // Include cookies if using sessions
       });
@@ -156,10 +156,11 @@ function ResponsiveAppBar() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "flex-start",
+                      width:"200px"
                     }}
                   >
                     <Box display="flex" flexDirection="column" width="100%">
-                      <Image
+                      <img
                         src={item.image}
                         width="100%"
                         height="100%"
@@ -167,14 +168,13 @@ function ResponsiveAppBar() {
                         style={{ borderRadius: 4 }}
                       />
 
-                      <Box ml={2} flex="1">
+                      <Box ml={1} flex="1">
                         <Typography fontWeight="bold">{item.name}</Typography>
                         <Typography variant="body2" color="text.secondary">
                           {item.description}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                          ⭐ {item.rating} · ⏱ {item.time} min · 📍{" "}
-                          {item.distance}
+                          ⭐ {item.rating} · ⏱ {item.time} · 📍{item.distance}
                         </Typography>
                       </Box>
                       <Button

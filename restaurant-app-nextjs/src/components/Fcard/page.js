@@ -55,11 +55,12 @@ const Fcard = ({
           position="absolute"
         >
           <Link href={`/restaurant/${id}`}>
-            <Image
-              height={150}
+            <img
+              height={150} // Explicit height for the image
+              width={278} // Explicit width for the image
               src={image}
               alt="food"
-              style={{ cursor: "pointer", width: "100%" }}
+              style={{ cursor: "pointer", width: "100%", borderRadius: "20px" }} // Style for additional customization
             />
           </Link>
         </Box>
@@ -105,7 +106,6 @@ const Fcard = ({
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            
           >
             <h3>{name}</h3>
             <Rating value={rating} readOnly />

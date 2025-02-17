@@ -13,29 +13,29 @@ import Image from "next/image";
 
 const CardS = ({ image, name, rating, description, distance, time }) => {
   return (
-    <Card sx={{ width: "200px", height: "200px", borderRadius: "20px", overflow:"visible", display:"flex", justifyContent:"center"}} >
-      <Box sx={{ width: "200px", height: "200px", borderRadius:"20px" }}>
-        <Box width="200px" height="112px" borderRadius="20px">
+    <Card sx={{ width: "300px", height: "200px", borderRadius: "20px", overflow:"visible", display:"flex", justifyContent:"center"}} >
+      <Box sx={{ width: "300px", height: "200px", borderRadius:"20px" }}>
+        <Box width="300px" height="112px" borderRadius="20px">
           <Image
         //   borderRadius={20}
             // width="50%%"
-            width={200}
+            width={300}
             height={112}
             src={image}
             alt="food"
             priority 
           />
         </Box>
-        <Box width="200px" height="88px" margin="4px">
+        <Box width="300px" height="88px" margin="4px">
           {/* <CardContent> */}
 
           <Box
-            width="180px"
+            width="300px"
             height="16px"
             marginTop="7px"
             marginBottom="7px"
             display="flex"
-            justifyContent="space-between"
+            // justifyContent="space-between"
             alignItems="center"
           >
             {/* <Typography height="45px" lineHeight="1"> */}
@@ -43,7 +43,7 @@ const CardS = ({ image, name, rating, description, distance, time }) => {
             <Rating value={rating} readOnly />
             {/* </Typography> */}
           </Box>
-          <Box width="114px" height="30px" 
+          <Box width="180px" height="30px" 
         //   marginTop="7px" 
         //   marginBottom="7px"
           >
